@@ -46,6 +46,7 @@ fetch('https://api.covid19api.com/summary')
           }
         }); </script></h3>-->
 */
+const fs = require('fs')
 
 function GlobalStats(){
   var TotalConfirmed
@@ -57,13 +58,20 @@ function GlobalStats(){
     })
     .then((data) => {
       if(data != undefined){
+        NewConfirmed = data.Global.NewConfirmed;
+        NewRecovered = data.Global.NewRecovered
+        NewDeaths = data.Global.NewDeaths;
         TotalConfirmed = data.Global.TotalConfirmed;
         TotalRecovered = data.Global.TotalRecovered;
         TotalDeaths = data.Global.TotalDeaths;
+        document.getElementById("NewActives").textContent = NewConfirmed;
         document.getElementById("Actives").textContent = TotalConfirmed;
-        //document.getElementById("Recovered").textContent = TotalRecovered;
-        //document.getElementById("Deaths").textContent = TotalDeaths;
+        document.getElementById("NewRecovered").textContent = NewRecovered;
+        document.getElementById("Recovered").textContent = TotalRecovered;
+        document.getElementById("NewDeaths").textContent = NewDeaths;
+        document.getElementById("Deaths").textContent = TotalDeaths;
       }
+
     });
   currentTime();
 };

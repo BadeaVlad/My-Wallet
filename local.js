@@ -1,4 +1,4 @@
-let fs = require('fs');
+const fs = require('fs')
 
 function localstorage(){
     var TotalConfirmed
@@ -15,9 +15,6 @@ function localstorage(){
                 TotalDeaths = data.Global.TotalDeaths;
             }
             var json = JSON.stringify(data.Global);
-            fs.writeFile('data.json', json, function(err){
-                if (err) throw err;
-                console.log('Replaced!');
-            });
+            fs.writeFile('data.json', json);
         });
 }

@@ -5,13 +5,16 @@
   "main": "server.js",
   "dependencies": {
     "chart.js": "^2.9.3",
+    "dotenv": "^8.2.0",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
     "fs-js": "^1.0.6",
     "mongodb": "^3.5.5",
     "node-fetch": "^2.6.0",
     "nodejs": "0.0.0",
+    "nodemon": "^2.0.4",
     "require": "^2.4.20",
+    "required": "^1.0.0",
     "requirejs": "^2.3.6"
   },
   "devDependencies": {
