@@ -52,17 +52,49 @@ function GlobalStats(){
   var TotalRecovered
   var TotalDeaths
   fetch('https://api.covid19api.com/summary')
-              .then((response) => {
-                return response.json();
-              })
-              .then((data) => {
-                if(data != undefined){
-                  TotalConfirmed = data.Global.TotalConfirmed;
-                  TotalRecovered = data.Global.TotalRecovered;
-                  TotalDeaths = data.Global.TotalDeaths;
-                  document.getElementById("Actives").textContent = TotalConfirmed;
-                  document.getElementById("Recovered").textContent = TotalRecovered;
-                  document.getElementById("Deaths").textContent = TotalDeaths;
-                }
-              });
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      if(data != undefined){
+        TotalConfirmed = data.Global.TotalConfirmed;
+        TotalRecovered = data.Global.TotalRecovered;
+        TotalDeaths = data.Global.TotalDeaths;
+        document.getElementById("Actives").textContent = TotalConfirmed;
+        //document.getElementById("Recovered").textContent = TotalRecovered;
+        //document.getElementById("Deaths").textContent = TotalDeaths;
+      }
+    });
+  currentTime();
 };
+
+function currentTime() {
+  var date = new Date(); /* creating object of Date class */
+  var hour = date.getHours();
+  var min = date.getMinutes();
+  var sec = date.getSeconds();
+  hour = updateTime(hour);
+  min = updateTime(min);
+  sec = updateTime(sec);
+  document.getElementById("clock").innerText = hour + " : " + min + " : " + sec; /* adding time to the div */
+    var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+}
+
+function updateTime(k) {
+  if (k < 10) {
+    return "0" + k;
+  }
+  else {
+    return k;
+  }
+}
+
+//currentTime();
+/*
+<ul class="uk-navbar-nav">
+        <li class="uk-active">
+          <a id="clock"></a>
+        </li>
+      </ul>
+
+*/
