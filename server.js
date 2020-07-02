@@ -46,7 +46,15 @@ fetch('https://api.covid19api.com/summary')
           }
         }); </script></h3>-->
 */
-const fs = require('fs')
+function Italy(){
+  fetch('https://api.covid19api.com/dayone/country/romania')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  })
+}
 
 function GlobalStats(){
   var TotalConfirmed
