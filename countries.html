@@ -10,6 +10,13 @@
 <body onload="Countries()">
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.4/dist/js/uikit-icons.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+    <script>
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawPie);
+    </script>
     
     <nav class="uk-navbar-container" uk-navbar style="background-color: #212121;">
         <div class="uk-navbar-left">
@@ -33,10 +40,9 @@
         <div class="uk-navbar-right">
             <form class="uk-search uk-search-default">
                 <a href="" uk-search-icon style="color: white;"></a>
-                <input id="SearchBar" onclick="InitializeSearchBar()" onkeyup="Search()" class="uk-search-input" type="search" placeholder="Search..." style="color: white; border-top-left-radius: 15px; border-bottom-left-radius: 15px;">
+                <input id="SearchBar" onkeyup="Search()" class="uk-search-input" type="search" placeholder="Search..." style="color: white; border-top-left-radius: 15px; border-bottom-left-radius: 15px;">
                 <div uk-dropdown="mode: click" style="background-color: #212121;">
                     <ul id="CountriesSearchList" class="uk-nav uk-dropdown-nav">
-                        
                     </ul>
                 </div>
             </form>
@@ -56,5 +62,19 @@
             </div>
         </div>
     </nav>
+    <h1 id="CountryTitle"></h1>
+    <h4 id="CountryCode"></h4>
+    <p id="TotalConfirmed"></p>
+    <p id="NewConfirmed"></p>
+    <p id="TotalRecovered"></p>
+    <p id="NewRecovered"></p>
+    <p id="TotalDeaths"></p>
+    <p id="NewDeaths"></p>
+    <div>
+        <div id="line_chart" style="width: 900px; height: 500px"></div>
+    </div>
+    <div>
+        <div id="pie_chart" style="width: 900px; height: 500px"></div>
+    </div>
 </body>
 </html>

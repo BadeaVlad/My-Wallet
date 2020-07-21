@@ -1,59 +1,80 @@
-//const fetch = require('node-fetch');
-//var Chart = require('chart.js');
-/*var country;
+var startdate = "2020-05-22";
+var array = [];
+var ConfirmedIndex = 1;
+var RecoverdIndex = 0;
+var DeathsIndex = 0;
+//AIzaSyCgLIrQEjs4UWdVfndqOoI4abcSId9hLZ0
 
-  fetch('https://api.covid19api.com/live/country/italy/status/confirmed')
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    if(data[1] != undefined){
-      console.log(data[1]);
-      country = data[1].Active;
-      document.getElementById("Actives").write(country);
-    }
-  }); 
+function drawChart(){
+  var finishdate = new Date();
+  finishdate = finishdate.getFullYear() + "-" + finishdate.getMonth() + "-" + finishdate.getDate();
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Country');
+  data.addColumn('number', 'Cases');
+  if (ConfirmedIndex == 1){
+    fetch('https://api.covid19api.com/summary')
+    .then((response) => {
+      return response.json();
+    })
+    .then((dati) => {
+      /*for (i = 0; i < dati.length; i++){
+        array[i] = dati[i].TotalConfirmed;
+      }
+      array.sort();*/
+      console.log(dati.Countries);
+      for(i = 0; i < dati.Countries.length; i++){
+        data.addRows([
+          [dati.Countries[i].CountryCode, dati.Countries[i].TotalConfirmed]
+        ])
+      }
+      var options = {};
+      var chart = new google.visualization.GeoChart(document.getElementById("Map_chart"));
 
-fetch('https://api.covid19api.com/live/country/italy/status/confirmed')
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    if(data[1] != undefined){
-      console.log(data[1].Country);
-      country = data[1].Country;
-      console.log(country);
-    }
-  });
-var data
+      chart.draw(data, options);
+    })
+  } else if (RecoverdIndex == 1){
+    fetch('https://api.covid19api.com/summary')
+    .then((response) => {
+      return response.json();
+    })
+    .then((dati) => {
+      /*for (i = 0; i < dati.length; i++){
+        array[i] = dati[i].TotalConfirmed;
+      }
+      array.sort();*/
+      console.log(dati.Countries);
+      for(i = 0; i < dati.Countries.length; i++){
+        data.addRows([
+          [dati.Countries[i].CountryCode, dati.Countries[i].TotalRecovered]
+        ])
+      }
+      var options = {};
+      var chart = new google.visualization.GeoChart(document.getElementById("Map_chart"));
 
-fetch('https://api.covid19api.com/summary')
-  .then(response => response.json())
-  .then((dati) => {
-    data = dati;
-    console.log(data.Global.TotalConfirmed);
- });
+      chart.draw(data, options);
+    })
+  } else {
+    fetch('https://api.covid19api.com/summary')
+    .then((response) => {
+      return response.json();
+    })
+    .then((dati) => {
+      /*for (i = 0; i < dati.length; i++){
+        array[i] = dati[i].TotalConfirmed;
+      }
+      array.sort();*/
+      console.log(dati.Countries);
+      for(i = 0; i < dati.Countries.length; i++){
+        data.addRows([
+          [dati.Countries[i].CountryCode, dati.Countries[i].TotalDeaths]
+        ])
+      }
+      var options = {};
+      var chart = new google.visualization.GeoChart(document.getElementById("Map_chart"));
 
-<script type="text/javascript">fetch('https://api.covid19api.com/live/country/italy/status/confirmed')
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if(data[1] != undefined){
-            console.log(data[1]);
-            country = data[1].Active;
-            document.write(country);
-          }
-        }); </script></h3>-->
-*/
-function Italy(){
-  fetch('https://api.covid19api.com/dayone/country/romania')
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-  })
+      chart.draw(data, options);
+    })
+  }
 }
 
 function GlobalStats(){
@@ -78,10 +99,13 @@ function GlobalStats(){
         document.getElementById("Recovered").textContent = TotalRecovered;
         document.getElementById("NewDeaths").textContent = NewDeaths;
         document.getElementById("Deaths").textContent = TotalDeaths;
+      } else{
+        console.log("some prob");
       }
 
     });
   currentTime();
+  drawChart();
 };
 
 function currentTime() {
@@ -103,6 +127,27 @@ function updateTime(k) {
   else {
     return k;
   }
+}
+
+function ConfirmedTab(){
+  ConfirmedIndex = 1;
+  RecoverdIndex = 0;
+  DeathsIndex = 0;
+  drawChart();
+}
+
+function RecoveredTab(){
+  ConfirmedIndex = 0;
+  RecoverdIndex = 1;
+  DeathsIndex = 0;
+  drawChart();
+}
+
+function DeathsTab(){
+  ConfirmedIndex = 0;
+  RecoverdIndex = 0;
+  DeathsIndex = 1;
+  drawChart();
 }
 
 //currentTime();
